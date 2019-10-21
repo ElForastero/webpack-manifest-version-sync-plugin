@@ -1,0 +1,10 @@
+{
+  "name": "webpack-manifest-version-sync-plugin",
+  "version": "0.0.1",
+  "description": "Webpack plugin for version sync between package.json and manifest.json.",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  }
+}
