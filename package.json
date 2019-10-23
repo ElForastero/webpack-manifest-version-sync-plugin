@@ -1,7 +1,10 @@
 {
   "name": "webpack-manifest-version-sync-plugin",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Webpack plugin for version sync between package.json and manifest.json.",
+  "repository": {
+    "url": "https://github.com/ElForastero/webpack-manifest-version-sync-plugin"
+  },
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
