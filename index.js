@@ -1,14 +1,14 @@
 const fs = require('fs');
-
+  
 class ManifestVersionSyncPlugin {
   constructor(options) {
-    this.options = { ...this.options, ...options };
-  }
+    const defaultOptions = {
+      manifestPath: 'manifest.json',
+      packagePath: 'package.json',
+    };
 
-  options = {
-    manifestPath: 'manifest.json',
-    packagePath: 'package.json',
-  };
+    this.options = { ...defaultOptions, ...options };
+  }
 
   apply(compiler) {
     compiler.hooks.emit.tapAsync('ManifestVersionSyncPlugin', (compilation, callback) => {
