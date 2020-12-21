@@ -1,5 +1,5 @@
 const fs = require('fs');
-  
+
 class ManifestVersionSyncPlugin {
   constructor(options) {
     const defaultOptions = {
@@ -20,7 +20,7 @@ class ManifestVersionSyncPlugin {
       const { packagePath, manifestPath } = this.options;
       const { version } = JSON.parse(fs.readFileSync(packagePath).toString());
       const manifest = JSON.parse(compilation.assets[manifestPath].source().toString());
-      const content = JSON.stringify({ ...manifest, version });
+      const content = JSON.stringify({ version, ...manifest }, undefined, 2);
 
       compilation.assets[manifestPath] = {
         source: function() {
