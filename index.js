@@ -20,7 +20,7 @@ class ManifestVersionSyncPlugin {
       const { packagePath, manifestPath } = this.options;
       const { version } = JSON.parse(fs.readFileSync(packagePath).toString());
       const manifest = JSON.parse(compilation.assets[manifestPath].source().toString());
-      const content = JSON.stringify({ version, ...manifest }, undefined, 2);
+      const content = JSON.stringify({ ...manifest, version }, undefined, 2);
 
       compilation.assets[manifestPath] = {
         source: function() {
