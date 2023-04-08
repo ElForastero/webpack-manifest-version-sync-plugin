@@ -11,27 +11,28 @@ class ManifestVersionSyncPlugin {
   }
 
   apply(compiler) {
-    compiler.hooks.emit.tapAsync('ManifestVersionSyncPlugin', (compilation, callback) => {
-      // Skip watch mode
-      if (compilation.options.watch) {
-        return callback();
-      }
+    compiler.hooks.compilation.tap('ManifestVersionSyncPlugin', (compilation, compilationParams) => {
+      compilation.hooks.afterProcessAssets.tap('ManifestVersionSyncPlugin', () => {
+        const { packagePath, manifestPath } = this.options;
 
-      const { packagePath, manifestPath } = this.options;
-      const { version } = JSON.parse(fs.readFileSync(packagePath).toString());
-      const manifest = JSON.parse(compilation.assets[manifestPath].source().toString());
-      const content = JSON.stringify({ ...manifest, version }, undefined, 2);
-
-      compilation.assets[manifestPath] = {
-        source: function() {
-          return content;
-        },
-        size: function() {
-          return Buffer.byteLength(content);
-        },
-      };
-
-      callback();
+        // Skip watch mode
+        if (compilation.options.watch || compilation.assets[manifestPath] == undefined) {
+          return;
+        }
+  
+        const { version } = JSON.parse(fs.readFileSync(packagePath).toString());
+        const manifest = JSON.parse(compilation.assets[manifestPath].source().toString());
+        const content = JSON.stringify({ ...manifest, version }, undefined, 2);
+  
+        compilation.assets[manifestPath] = {
+          source: function() {
+            return content;
+          },
+          size: function() {
+            return Buffer.byteLength(content);
+          },
+        };
+      });
     });
   }
 }

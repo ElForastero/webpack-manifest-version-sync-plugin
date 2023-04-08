@@ -18,6 +18,12 @@ Use [npm version](https://docs.npmjs.com/cli/version) to bump your package versi
 yarn add --dev webpack-manifest-version-sync-plugin
 ```
 
+or
+
+```sh
+npm install webpack-manifest-version-sync-plugin --save-dev
+```
+
 ## Usage
 
 ```js
